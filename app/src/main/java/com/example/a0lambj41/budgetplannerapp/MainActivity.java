@@ -1,8 +1,11 @@
 package com.example.a0lambj41.budgetplannerapp;
 
 
+import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,8 +24,35 @@ public class MainActivity extends AppCompatActivity {
         // Inflates menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
+        /*
+        MenuItem item = menu.findItem(R.id.action_search);
+        SearchView sv = (SearchView) MenuItemCompat.getActionView(item);
+        sv.setOnQueryTextListener(new SearchHandler());
+        */
         return true;
     }
+
+    // ASK NICK WHY THE SEARCH HANDLER IS NOT WORKING
+    /*class SearchHandler implements SearchView.OnQueryTextListener {
+
+
+        public SearchHandler(){
+
+        }
+
+        public boolean onQueryTextChange(String txt) {
+            // do nothing... (this method runs when the user types a new character)
+            return true;
+        }
+
+        public boolean onQueryTextSubmit(String txt) {
+            // show the search text in an alert dialog
+            new AlertDialog.Builder(MainActivity.this).setPositiveButton("OK", null).
+                    setMessage(txt).show();
+            return true;
+        }
+    }*/
+
 
     // On selecting action bar icons
     @Override
