@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Search Widget -->
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/ic_search_black_48dp"
+        android:title="@string/action_search"
+        app:showAsAction="ifRoom"
+        android:actionViewClass="android.widget.SearchView"/>
+
+    <!-- Notifications -->
+    <item android:id="@+id/action_notifications"
+        android:icon="@drawable/ic_add_alert_black_24dp"
+        android:title="@string/action_notifications"
+        app:showAsAction="ifRoom" />
+
+    <!-- Transactions -->
+    <item android:id="@+id/action_transactions"
+        android:icon="@drawable/ic_payment_black_24dp"
+        android:title="@string/action_transactions"
+        app:showAsAction="ifRoom" />
+
+    <!-- Analytics -->
+    <item android:id="@+id/action_analytics"
+        android:icon="@drawable/ic_pie_chart_outlined_black_24dp"
+        android:title="@string/action_analytics"
+        app:showAsAction="never"/>
+
+    <!-- Rate us -->
+    <item android:id="@+id/action_rate_us"
+        android:icon="@drawable/ic_star_rate_black_18dp"
+        android:title="@string/action_rate_us"
+        app:showAsAction="never" />
+
+</menu>
