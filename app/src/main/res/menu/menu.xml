@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <!-- Search Widget -->
     <item android:id="@+id/action_search"
-        android:icon="@drawable/ic_search_black_48dp"
+        android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"
         android:actionViewClass="android.support.v7.widget.SearchView"/>
 
     <!-- Notifications -->
     <item android:id="@+id/action_notifications"
-        android:icon="@drawable/ic_add_alert_black_24dp"
+        android:icon="@drawable/ic_add_alert_white_24dp"
         android:title="@string/action_notifications"
         app:showAsAction="ifRoom" />
 

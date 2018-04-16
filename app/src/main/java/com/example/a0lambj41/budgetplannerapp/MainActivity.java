@@ -1,22 +1,38 @@
 package com.example.a0lambj41.budgetplannerapp;
 
 
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.SearchView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends AppCompatActivity {
+
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar1);
+        setSupportActionBar(toolbar);
+
+        fab = (FloatingActionButton)findViewById(R.id.fab1);
+        fab.setOnClickListener (new View.OnClickListener() {
+            public void onClick(View view) {
+                new AlertDialog.Builder(MainActivity.this).setPositiveButton("OK", null).
+                        setMessage("The FloatingActionButton was clicked!").show();
+            }
+        });
     }
 
     @Override
@@ -24,16 +40,15 @@ public class MainActivity extends AppCompatActivity {
         // Inflates menu
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu, menu);
-        /*
-        MenuItem item = menu.findItem(R.id.action_search);
+
+        /*MenuItem item = menu.findItem(R.id.action_search);
         SearchView sv = (SearchView) MenuItemCompat.getActionView(item);
-        sv.setOnQueryTextListener(new SearchHandler());
-        */
+        sv.setOnQueryTextListener(new SearchHandler());*/
         return true;
     }
 
     // ASK NICK WHY THE SEARCH HANDLER IS NOT WORKING
-    /*class SearchHandler implements SearchView.OnQueryTextListener {
+    class SearchHandler implements SearchView.OnQueryTextListener {
 
 
         public SearchHandler(){
@@ -51,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
                     setMessage(txt).show();
             return true;
         }
-    }*/
+    }
 
 
     // On selecting action bar icons
@@ -62,6 +77,7 @@ public class MainActivity extends AppCompatActivity {
         {
             // search action
             return true;
+
         }
         else if(item.getItemId() == R.id.action_notifications)
         {
@@ -87,4 +103,5 @@ public class MainActivity extends AppCompatActivity {
         }
         return false;
     }
+
 }
