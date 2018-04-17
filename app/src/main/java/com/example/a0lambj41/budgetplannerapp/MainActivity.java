@@ -106,7 +106,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     // Handles the SearchView
     class SearchHandler implements SearchView.OnQueryTextListener {
 
-
         public SearchHandler() {
 
         }
