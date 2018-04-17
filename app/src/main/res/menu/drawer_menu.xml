@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_dashboard"
+            android:icon="@drawable/ic_dashboard_black_24dp"
+            android:title="Dashboard" />
+        <item
+            android:id="@+id/nav_transactions"
+            android:icon="@drawable/ic_format_list_bulleted_black_24dp"
+            android:title="@string/action_transactions" />
+        <item
+            android:id="@+id/nav_months"
+            android:icon="@drawable/ic_playlist_add_black_24dp"
+            android:title="Select Other Months" />
+    </group>
+
+    <item android:title="Communicate">
+        <menu>
+            <item
+                android:id="@+id/nav_share"
+                android:icon="@drawable/ic_share_black_24dp"
+                android:title="share" />
+        </menu>
+    </item>
+
+</menu>

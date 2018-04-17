@@ -6,7 +6,7 @@
         android:icon="@drawable/ic_search_white_24dp"
         android:title="@string/action_search"
         app:showAsAction="ifRoom"
-        android:actionViewClass="android.support.v7.widget.SearchView"/>
+        app:actionViewClass="android.support.v7.widget.SearchView"/>
 
     <!-- Notifications -->
     <item android:id="@+id/action_notifications"
