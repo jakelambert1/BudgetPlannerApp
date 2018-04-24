@@ -18,6 +18,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
@@ -26,10 +28,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton fab;
     private DrawerLayout drawer;
 
+    MyHelper transactionsDB;
+    Button btnAddData;
+    EditText etName,etAmount;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Inserting data
+        transactionsDB = new MyHelper(this);
+        etName = (EditText) findViewById(R.id.etNewName);
+        etAmount = (EditText) findViewById(R.id.etNewAmount);
+        btnAddData = (Button) findViewById(R.id.btnAddData);
+        AddData();
 
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -55,8 +67,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
+
     }
 
+    public void AddData() {
+        btnAddData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String name = etName.getText().toString();
+                String amount = etAmount.getText().toString();
+
+                boolean insertData = transactionsDB.addData(name, amount);
+
+                if(insertData == true){
+                    Toast.makeText(MainActivity.this, "Data successfully inserted!",Toast.LENGTH_LONG).show();
+                }else{
+                    Toast.makeText(MainActivity.this, "Something went wrong!",Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+    }
 
 
     // Close navigation drawer without leaving activity

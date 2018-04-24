@@ -13,7 +13,7 @@ public class MyHelper extends SQLiteOpenHelper {
     public static final String COL2 = "Name";
     public static final String COL3 = "Amount";
 
-    public MyHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+    public MyHelper(Context context) {
         super(context, DATABASE_NAME, null, 1);
     }
 
