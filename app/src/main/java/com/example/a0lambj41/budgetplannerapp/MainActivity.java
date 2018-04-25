@@ -1,7 +1,9 @@
 package com.example.a0lambj41.budgetplannerapp;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -20,6 +22,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,20 +31,22 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     FloatingActionButton fab;
     private DrawerLayout drawer;
 
-    MyHelper transactionsDB;
-    Button btnAddData;
-    EditText etName,etAmount;
+    EditText transaction, description, amount;
+    TextView textView;
+    MyHelper controller;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Inserting data
-        transactionsDB = new MyHelper(this);
-        etName = (EditText) findViewById(R.id.etNewName);
-        etAmount = (EditText) findViewById(R.id.etNewAmount);
-        btnAddData = (Button) findViewById(R.id.btnAddData);
-        AddData();
+        // SQLite
+        transaction = (EditText) findViewById(R.id.etNewName);
+        description = (EditText) findViewById(R.id.etNewAmount);
+        amount = (EditText) findViewById(R.id.etNewAmount);
+        textView = (TextView) findViewById(R.id.listText);
+
+        controller = new MyHelper(this, "", null, 1);
 
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -70,25 +75,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    public void AddData() {
-        btnAddData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String name = etName.getText().toString();
-                String amount = etAmount.getText().toString();
-
-                boolean insertData = transactionsDB.addData(name, amount);
-
-                if(insertData == true){
-                    Toast.makeText(MainActivity.this, "Data successfully inserted!",Toast.LENGTH_LONG).show();
-                }else{
-                    Toast.makeText(MainActivity.this, "Something went wrong!",Toast.LENGTH_LONG).show();
+    public void btn_click(View view) {
+        switch (view.getId()){
+            case R.id.btnInsert:
+                try{
+                    controller.insert_transaction(transaction.getText().toString(),
+                            description.getText().toString(), amount.getText().toString());
+                }catch (SQLiteException e){
+                    Toast.makeText(MainActivity.this, "ALREADY EXISTS", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-    }
 
+                break;
+            case R.id.btnUpdate:
+                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                dialog.setTitle("ENTER NEW AMOUNT");
+
+                final EditText new_amount = new EditText(this);
+                dialog.setView(new_amount);
+
+                dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        controller.update_transaction(amount.getText().toString(),new_amount.getText().toString());
+                    }
+                });
+                dialog.show();
+                break;
+            case R.id.btnDelete:
+                controller.delete_transaction(description.getText().toString());
+                break;
+            case R.id.btnView:
+                controller.list_transactions(textView);
+                break;
+        }
+    }
 
     // Close navigation drawer without leaving activity
     @Override
@@ -121,7 +141,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 return true;
             case R.id.nav_transactions:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransactionsFragment()).commit();
-                break;
+            break;
             case R.id.nav_months:
                 getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new MonthsFragment()).commit();
                 break;
@@ -133,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
     // Handles the SearchView
     class SearchHandler implements SearchView.OnQueryTextListener {

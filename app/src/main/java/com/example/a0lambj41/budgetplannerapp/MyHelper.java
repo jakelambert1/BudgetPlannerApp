@@ -2,46 +2,51 @@ package com.example.a0lambj41.budgetplannerapp;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.widget.TextView;
 
-public class MyHelper extends SQLiteOpenHelper {
+/**
+ * Created by 0lambj41 on 25/04/2018.
+ */
 
-    public static final String DATABASE_NAME = "budget_planner.db";
-    public static final String TABLE_NAME = "transactions.db";
-    public static final String COL1 = "ID";
-    public static final String COL2 = "Name";
-    public static final String COL3 = "Amount";
-
-    public MyHelper(Context context) {
-        super(context, DATABASE_NAME, null, 1);
+public class MyHelper extends SQLiteOpenHelper{
+    public MyHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
+        super(context, "budgetplanner.db", factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-        String createTable = "CREATE TABLE " + TABLE_NAME + " (ID INTEGER PRIMARY KEY AUTOCRIMENT, "
-                + " NAME TEXT, EMAIL TEXT, TVSHOW TEXT)";
-        sqLiteDatabase.execSQL(createTable);
+    sqLiteDatabase.execSQL("CREATE TABLE TRANSACTIONS( ID INTEGER PRIMARY KEY AUTOINCREMENT, TRANSACTION TEXT, DESCRIPTION TEXT UNIQUE, AMOUNT INTEGER)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP IF TABLE EXISTS " + TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS TRANSACTIONS;");
         onCreate(sqLiteDatabase);
     }
 
-    public boolean addData(String name, String amount){
-        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+    public void insert_transaction(String transaction, String description, String amount){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(COL2,name);
-        contentValues.put(COL3,amount);
+        contentValues.put("TRANSACTION",transaction);
+        contentValues.put("DESCRIPTION",description);
+        contentValues.put("AMOUNT",amount);
+        this.getWritableDatabase().insertOrThrow("TRANSACTIONS","",contentValues);
+    }
 
-        long result = sqLiteDatabase.insert(TABLE_NAME, null, contentValues);
+    public void delete_transaction(String description) {
+        this.getWritableDatabase().delete("TRANSACTIONS", "DESCRIPTION='" + description + "'", null);
+    }
 
-        if(result == -1){
-            return false;
-        }else{
-            return true;
+    public void update_transaction(String desc, String new_amount){
+        this.getWritableDatabase().execSQL("UPDATE TRANSACTIONS SET AMOUNT='" + new_amount + "' WHERE DESCRIPTION='" + desc + "'");
+    }
+
+    public void list_transactions(TextView textView){
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM TRANSACTIONS",null);
+        while (cursor.moveToNext()){
+            textView.append(cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getInt(3));
         }
     }
 }
