@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_main);
 
         // SQLite g
-        transaction = (EditText) findViewById(R.id.etNewName);
-        description = (EditText) findViewById(R.id.etNewAmount);
+        transaction = (EditText) findViewById(R.id.etNewTransaction);
+        description = (EditText) findViewById(R.id.etNewDescription);
         amount = (EditText) findViewById(R.id.etNewAmount);
         textView = (TextView) findViewById(R.id.listText);
 
@@ -88,15 +88,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.btnUpdate:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("ENTER NEW AMOUNT");
+                dialog.setTitle("ENTER NEW DESCription");
 
-                final EditText new_amount = new EditText(this);
-                dialog.setView(new_amount);
+                final EditText new_description = new EditText(this);
+                dialog.setView(new_description);
 
                 dialog.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        controller.update_transaction(amount.getText().toString(),new_amount.getText().toString());
+                        controller.update_transaction(description.getText().toString(),new_description.getText().toString());
                     }
                 });
                 dialog.show();

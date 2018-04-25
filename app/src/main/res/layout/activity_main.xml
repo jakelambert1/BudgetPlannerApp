@@ -75,7 +75,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="40dp"
         android:hint="Income or Outcome"
-        android:inputType="textCapSentences|textAutoCorrect" />
+        />
 
     <TextView
         android:id="@+id/textView3"
@@ -96,7 +96,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="120dp"
         android:hint="Salary, Rent.. "
-        android:inputType="textCapSentences|textAutoCorrect" />
+        />
 
     <TextView
         android:id="@+id/textView4"
@@ -117,7 +117,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="200dp"
         android:hint="£600"
-        android:inputType="textCapSentences|textAutoCorrect" />
+        />
 
     <Button
         android:id="@+id/btnInsert"

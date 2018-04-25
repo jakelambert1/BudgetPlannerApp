@@ -18,35 +18,36 @@ public class MyHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    sqLiteDatabase.execSQL("CREATE TABLE TRANSACTIONS( ID INTEGER PRIMARY KEY AUTOINCREMENT, TRANSACTION TEXT, DESCRIPTION TEXT UNIQUE, AMOUNT INTEGER)");
+    sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS ACCOUNT( ID INTEGER PRIMARY KEY AUTOINCREMENT, TRANSACTION VARCHAR(255), DESCRIPTION VARCHAR(255), AMOUNT VARCHAR(255)) ");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS TRANSACTIONS;");
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS ACCOUNT;");
         onCreate(sqLiteDatabase);
     }
 
-    public void insert_transaction(String transaction, String description, String amount){
+    public void insert_transaction(String transaction,String description,String amount){
         ContentValues contentValues = new ContentValues();
         contentValues.put("TRANSACTION",transaction);
         contentValues.put("DESCRIPTION",description);
         contentValues.put("AMOUNT",amount);
-        this.getWritableDatabase().insertOrThrow("TRANSACTIONS","",contentValues);
+        this.getWritableDatabase().insertOrThrow("ACCOUNT","",contentValues);
     }
 
     public void delete_transaction(String description) {
-        this.getWritableDatabase().delete("TRANSACTIONS", "DESCRIPTION='" + description + "'", null);
+        this.getWritableDatabase().delete("ACCOUNT", "DESCRIPTION='" + description + "'", null);
     }
 
     public void update_transaction(String desc, String new_amount){
-        this.getWritableDatabase().execSQL("UPDATE TRANSACTIONS SET AMOUNT='" + new_amount + "' WHERE DESCRIPTION='" + desc + "'");
+        this.getWritableDatabase().execSQL("UPDATE ACCOUNT SET AMOUNT='" + new_amount + "' WHERE DESCRIPTION='" + desc + "'");
     }
 
     public void list_transactions(TextView textView){
-        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM TRANSACTIONS",null);
+        Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM ACCOUNT",null);
+        textView.setText("");
         while (cursor.moveToNext()){
-            textView.append(cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getInt(3));
+            textView.append(cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getString(3) + "\n");
         }
     }
 }
