@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // SQLite
+        // SQLite g
         transaction = (EditText) findViewById(R.id.etNewName);
         description = (EditText) findViewById(R.id.etNewAmount);
         amount = (EditText) findViewById(R.id.etNewAmount);
