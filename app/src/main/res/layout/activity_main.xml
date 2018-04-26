@@ -117,6 +117,7 @@
         android:layout_marginLeft="50dp"
         android:layout_marginTop="200dp"
         android:hint="£600"
+        android:inputType="numberDecimal"
         />
 
     <Button
@@ -164,7 +165,6 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:id="@+id/listText"
         android:gravity="top|center"
-        android:text="large"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="450dp"
         />

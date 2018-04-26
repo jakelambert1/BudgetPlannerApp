@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
             case R.id.btnUpdate:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
-                dialog.setTitle("ENTER NEW DESCription");
+                dialog.setTitle("ENTER NEW AMOUNT");
 
                 final EditText new_description = new EditText(this);
                 dialog.setView(new_description);

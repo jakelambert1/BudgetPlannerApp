@@ -18,7 +18,7 @@ public class MyHelper extends SQLiteOpenHelper{
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
-    sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS ACCOUNT( ID INTEGER PRIMARY KEY AUTOINCREMENT, TRANSACTION VARCHAR(255), DESCRIPTION VARCHAR(255), AMOUNT VARCHAR(255)) ");
+    sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS ACCOUNT( ID INTEGER PRIMARY KEY AUTOINCREMENT, INOUT VARCHAR(255), DESCRIPTION VARCHAR(255), AMOUNT MONEY) ");
     }
 
     @Override
@@ -29,7 +29,7 @@ public class MyHelper extends SQLiteOpenHelper{
 
     public void insert_transaction(String transaction,String description,String amount){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("TRANSACTION",transaction);
+        contentValues.put("INOUT",transaction);
         contentValues.put("DESCRIPTION",description);
         contentValues.put("AMOUNT",amount);
         this.getWritableDatabase().insertOrThrow("ACCOUNT","",contentValues);
@@ -47,7 +47,7 @@ public class MyHelper extends SQLiteOpenHelper{
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM ACCOUNT",null);
         textView.setText("");
         while (cursor.moveToNext()){
-            textView.append(cursor.getString(1) + " " + cursor.getString(2) + " " + cursor.getString(3) + "\n");
+            textView.append(cursor.getString(1) + "   :   " + cursor.getString(2) + "   :   " + cursor.getString(3) + "\n");
         }
     }
 }
