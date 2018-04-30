@@ -8,6 +8,10 @@
     android:padding="16dp"
     tools:context="com.example.a0lambj41.budgetplannerapp.TransactionsFragment">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Hello World!"/>
 
 
 </RelativeLayout>
