@@ -40,13 +40,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // SQLite g
-        transaction = (EditText) findViewById(R.id.etNewTransaction);
-        description = (EditText) findViewById(R.id.etNewDescription);
-        amount = (EditText) findViewById(R.id.etNewAmount);
-        textView = (TextView) findViewById(R.id.listText);
-
-        controller = new MyHelper(this, "", null, 1);
 
         // Toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
@@ -72,12 +65,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransactionsFragment()).commit();
+        //getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TransactionsFragment()).commit();
 
 
     }
 
     public void btn_click(View view) {
+
+        // SQLite g
+        transaction = (EditText) findViewById(R.id.etNewTransaction);
+        description = (EditText) findViewById(R.id.etNewDescription);
+        amount = (EditText) findViewById(R.id.etNewAmount);
+        textView = (TextView) findViewById(R.id.listText);
+
+        controller = new MyHelper(this, "", null, 1);
+
         switch (view.getId()){
             case R.id.btnInsert:
                 try{
