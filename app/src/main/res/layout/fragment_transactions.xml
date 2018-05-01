@@ -8,11 +8,11 @@
     android:padding="16dp"
     tools:context="com.example.a0lambj41.budgetplannerapp.TransactionsFragment">
 
-    <TextView
+        <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Add Incomes and Outgoings below"
+        android:text="May"
         android:textColor="@android:color/black"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -21,7 +21,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <TextView
+        <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
 
-    <EditText
+        <EditText
         android:id="@+id/etNewTransaction"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,24 +88,14 @@
             android:layout_alignLeft="@+id/textView4"
             android:layout_alignStart="@+id/textView4" />
 
-        <Button
-            android:id="@+id/btnInsert"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Save"
-            android:onClick="btn_click"
-            android:layout_below="@+id/etNewAmount"
-            android:layout_alignLeft="@+id/etNewAmount"
-            android:layout_alignStart="@+id/etNewAmount" />
-        <Button
+    <Button
             android:id="@+id/btnUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Update"
             android:onClick="btn_click"
             android:layout_below="@+id/etNewAmount"
-            android:layout_toRightOf="@+id/btnInsert"
-            android:layout_toEndOf="@+id/btnInsert" />
+             />
 
         <Button
             android:id="@+id/btnDelete"
@@ -128,6 +118,18 @@
             android:layout_toRightOf="@+id/btnDelete"
             android:layout_toEndOf="@+id/btnDelete" />
 
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="24dp"
+        app:elevation="6dp"
+        app:pressedTranslationZ="12dp"
+        android:src="@drawable/ic_save_black_24dp"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -135,10 +137,16 @@
             android:id="@+id/listText"
             android:gravity="top|center"
             android:layout_marginTop="17dp"
-            android:layout_below="@+id/btnInsert"
-            android:layout_alignLeft="@+id/btnInsert"
-            android:layout_alignStart="@+id/btnInsert"
+            android:layout_below="@+id/btnUpdate"
+            android:layout_alignLeft="@+id/btnUpdate"
+            android:layout_alignStart="@+id/btnUpdate"
             />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"/>
+
 
 
 </RelativeLayout>

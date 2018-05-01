@@ -20,13 +20,16 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
 
     FloatingActionButton fab;
     private DrawerLayout drawer;
@@ -45,14 +48,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar1);
         setSupportActionBar(toolbar);
 
-        // Floating action button
-        fab = (FloatingActionButton) findViewById(R.id.fab1);
-        fab.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                new AlertDialog.Builder(MainActivity.this).setPositiveButton("OK", null).
-                        setMessage("The FloatingActionButton was clicked!").show();
-            }
-        });
 
         // Navigation drawer
         drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -64,9 +59,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
-
-        
-
 
     }
 
@@ -80,16 +72,29 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         controller = new MyHelper(this, "", null, 1);
 
-        switch (view.getId()){
-            case R.id.btnInsert:
+        // Add array to spinner
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
+                (this, R.array.spinner_array, android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(this);
+
+        // Floating action button
+        fab = (FloatingActionButton) findViewById(R.id.fab1);
+        fab.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
                 try{
                     controller.insert_transaction(transaction.getText().toString(),
                             description.getText().toString(), amount.getText().toString());
                 }catch (SQLiteException e){
                     Toast.makeText(MainActivity.this, "ALREADY EXISTS", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
 
-                break;
+
+        switch (view.getId()){
             case R.id.btnUpdate:
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
                 dialog.setTitle("ENTER NEW AMOUNT");
@@ -112,6 +117,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 controller.list_transactions(textView);
                 break;
         }
+    }
+
+
+    // Spinner select listener
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        String text = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
     }
 
     // Close navigation drawer without leaving activity
@@ -157,6 +174,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
 
 
     // Handles the SearchView
