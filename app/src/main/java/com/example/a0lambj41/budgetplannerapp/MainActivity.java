@@ -4,6 +4,11 @@ package com.example.a0lambj41.budgetplannerapp;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -24,6 +29,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +65,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        Paint paint = new Paint();
+        paint.setColor(Color.parseColor("#da4747"));
+
+        Bitmap bg = Bitmap.createBitmap(480,800, Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(bg);
+        canvas.drawRect(50,50,200,200,paint);
+
+        LinearLayout ll = (LinearLayout) findViewById(R.id.rectangle);
+        ll.setBackground(new BitmapDrawable(bg));
 
     }
 
