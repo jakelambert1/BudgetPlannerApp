@@ -47,7 +47,7 @@ public class MyHelper extends SQLiteOpenHelper{
         Cursor cursor = this.getReadableDatabase().rawQuery("SELECT * FROM ACCOUNT",null);
         textView.setText("");
         while (cursor.moveToNext()){
-            textView.append("Transaction: " + cursor.getString(1) + "   :   " + cursor.getString(2) + "   :   " + cursor.getString(3) + "\n");
+            textView.append(cursor.getString(1) + "   :   " + cursor.getString(2) + "   :   " + cursor.getString(3) + "\n");
         }
     }
 }
