@@ -34,14 +34,14 @@
         android:layout_alignLeft="@+id/textView"
         android:layout_alignStart="@+id/textView" />
 
-        <EditText
-        android:id="@+id/etNewTransaction"
+        <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Income or Outcome"
+        android:id="@+id/spinner"
+        android:entries="@array/spinner_array"
         android:layout_below="@+id/textView2"
         android:layout_alignLeft="@+id/textView2"
-        android:layout_alignStart="@+id/textView2" />
+        android:layout_alignStart="@+id/textView2"/>
 
         <TextView
             android:id="@+id/textView3"
@@ -52,9 +52,9 @@
             android:textSize="16sp"
             android:textStyle="italic"
             android:layout_marginTop="12dp"
-            android:layout_below="@+id/etNewTransaction"
-            android:layout_alignLeft="@+id/etNewTransaction"
-            android:layout_alignStart="@+id/etNewTransaction" />
+            android:layout_below="@+id/spinner"
+            android:layout_alignLeft="@+id/spinner"
+            android:layout_alignStart="@+id/spinner" />
 
         <EditText
             android:id="@+id/etNewDescription"
@@ -142,10 +142,7 @@
             android:layout_alignStart="@+id/btnUpdate"
             />
 
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner"/>
+
 
 
 

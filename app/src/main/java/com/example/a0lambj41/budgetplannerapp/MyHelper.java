@@ -27,9 +27,9 @@ public class MyHelper extends SQLiteOpenHelper{
         onCreate(sqLiteDatabase);
     }
 
-    public void insert_transaction(String transaction,String description,String amount){
+    public void insert_transaction(String spinnerObj,String description,String amount){
         ContentValues contentValues = new ContentValues();
-        contentValues.put("INOUT",transaction);
+        contentValues.put("INOUT",spinnerObj);
         contentValues.put("DESCRIPTION",description);
         contentValues.put("AMOUNT",amount);
         this.getWritableDatabase().insertOrThrow("ACCOUNT","",contentValues);

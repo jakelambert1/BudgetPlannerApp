@@ -1,6 +1,7 @@
 package com.example.a0lambj41.budgetplannerapp;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
@@ -25,6 +26,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -35,7 +37,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     FloatingActionButton fab;
     private DrawerLayout drawer;
@@ -43,6 +45,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     EditText transaction, description, amount;
     TextView textView;
     MyHelper controller;
+    Spinner spinner;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,43 +71,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Paint paint = new Paint();
-        paint.setColor(Color.parseColor("#da4747"));
-
-        Bitmap bg = Bitmap.createBitmap(480,800, Bitmap.Config.ARGB_8888);
-
-        Canvas canvas = new Canvas(bg);
-        canvas.drawRect(50,50,200,200,paint);
-
-        LinearLayout ll = (LinearLayout) findViewById(R.id.rectangle);
-        ll.setBackground(new BitmapDrawable(bg));
-
     }
 
     public void btn_click(View view) {
 
         // SQLite g
-        transaction = (EditText) findViewById(R.id.etNewTransaction);
+        
         description = (EditText) findViewById(R.id.etNewDescription);
         amount = (EditText) findViewById(R.id.etNewAmount);
         textView = (TextView) findViewById(R.id.listText);
 
         controller = new MyHelper(this, "", null, 1);
 
-        // Add array to spinner
-        Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource
-                (this, R.array.spinner_array, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
+        final Spinner spinner = (Spinner)findViewById(R.id.spinner);
 
         // Floating action button
         fab = (FloatingActionButton) findViewById(R.id.fab1);
         fab.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try{
-                    controller.insert_transaction(transaction.getText().toString(),
+                    controller.insert_transaction(spinner.getSelectedItem().toString(),
                             description.getText().toString(), amount.getText().toString());
                 }catch (SQLiteException e){
                     Toast.makeText(MainActivity.this, "ALREADY EXISTS", Toast.LENGTH_SHORT).show();
@@ -110,6 +98,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             }
         });
 
+        // Hiding the keyboard
+        InputMethodManager imm = (InputMethodManager)
+                getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
 
         switch (view.getId()){
             case R.id.btnUpdate:
@@ -137,16 +129,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
 
-    // Spinner select listener
-    @Override
-    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-        String text = adapterView.getItemAtPosition(i).toString();
-    }
 
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {
-
-    }
 
     // Close navigation drawer without leaving activity
     @Override
