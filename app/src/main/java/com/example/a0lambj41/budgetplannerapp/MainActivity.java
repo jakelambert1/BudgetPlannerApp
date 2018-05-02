@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     public void btn_click(View view) {
 
         // SQLite g
-        
+
         description = (EditText) findViewById(R.id.etNewDescription);
         amount = (EditText) findViewById(R.id.etNewAmount);
         textView = (TextView) findViewById(R.id.listText);
